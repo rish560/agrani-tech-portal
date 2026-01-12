@@ -5,10 +5,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AGRANI DIGITAL | Quantum-Era Digital Transformation</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
+    <link rel="shortcut icon" href="/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap">
     <link href="/src/main.css" rel="stylesheet" />
+    <script>
+        // Apply theme immediately to prevent flash
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('agrani-theme');
+                const theme = savedTheme ? JSON.parse(savedTheme) : 'dark';
+                if (theme === 'light') {
+                    document.documentElement.classList.add('light');
+                }
+            } catch (e) {
+                console.error('Error loading theme:', e);
+            }
+        })();
+    </script>
 </head>
 
 <body>

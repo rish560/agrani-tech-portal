@@ -130,7 +130,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
       const timestamp = new Date().toISOString()
       const submissionKey = `consultation-${timestamp}`
       
-      const recipientEmail = user?.email || `${user?.login}@users.noreply.github.com`
+      const recipientEmail = 'consult@agrani.digital'
       
       await window.spark.kv.set(submissionKey, {
         ...formData,
@@ -354,35 +354,43 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
       <NeuralNetwork />
       <Toaster />
 
-      <nav className="fixed top-0 left-0 right-0 z-50 glass-panel-strong">
+      <nav className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-lg shadow-md border-b ${
+        theme === 'dark' 
+          ? 'bg-[#D3E4FD]/90 border-blue-200/50' 
+          : 'bg-white/90 border-gray-200/50'
+      }`}>
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <button 
               onClick={() => scrollToSection('home')}
               className="group relative"
             >
-              <motion.span
+              <motion.div
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="text-lg font-medium tracking-wide holo-text"
+                className="flex items-center"
               >
-                AGRANI DIGITAL
-              </motion.span>
+                <img 
+                  src="/logo.png" 
+                  alt="AGRANI DIGITAL" 
+                  className="h-24 w-auto"
+                />
+              </motion.div>
               <div className="absolute -bottom-1 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </button>
             
             <div className="flex items-center gap-4">
               <motion.button
                 onClick={toggleTheme}
-                className="md:hidden p-2 rounded-lg glass-panel hover:border-primary/40 transition-all"
+                className="md:hidden p-2 rounded-lg bg-cyan-100/60 hover:bg-cyan-200/60 border border-cyan-200 transition-all"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label="Toggle theme"
               >
                 {theme === 'dark' ? (
-                  <Sun size={18} weight="light" className="text-primary" />
+                  <Sun size={18} weight="light" className="text-slate-900" />
                 ) : (
-                  <Moon size={18} weight="light" className="text-primary" />
+                  <Moon size={18} weight="light" className="text-slate-900" />
                 )}
               </motion.button>
             
@@ -391,7 +399,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
                   <motion.button
                     key={section}
                     onClick={() => scrollToSection(section.toLowerCase().replace(' ', '-'))}
-                    className={`text-sm font-medium tracking-wide relative transition-all ${
+                    className={`text-base font-semibold tracking-wide relative transition-all ${
                       activeSection === section.toLowerCase().replace(' ', '-') 
                         ? 'text-primary' 
                         : 'text-muted-foreground hover:text-foreground'
@@ -411,15 +419,15 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
                 
                 <motion.button
                   onClick={toggleTheme}
-                  className="p-2 rounded-lg glass-panel hover:border-primary/40 transition-all"
+                  className="p-2 rounded-lg bg-cyan-100/60 hover:bg-cyan-200/60 border border-cyan-200 transition-all"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label="Toggle theme"
                 >
                   {theme === 'dark' ? (
-                    <Sun size={18} weight="light" className="text-primary" />
+                    <Sun size={18} weight="light" className="text-slate-900" />
                   ) : (
-                    <Moon size={18} weight="light" className="text-primary" />
+                    <Moon size={18} weight="light" className="text-slate-900" />
                   )}
                 </motion.button>
               </div>
@@ -445,7 +453,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
               className="inline-flex items-center gap-3 px-4 py-2 glass-panel rounded-full mb-10"
             >
               <div className="w-1.5 h-1.5 rounded-full bg-primary animate-glow-pulse" />
-              <span className="mono-text text-xs text-muted-foreground tracking-widest">BORN IN THE CLOUD</span>
+              <span className="mono-text text-sm text-muted-foreground tracking-widest font-medium">BORN IN THE CLOUD</span>
             </motion.div>
             
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium tracking-tight mb-6">
@@ -461,7 +469,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 font-light leading-relaxed"
+              className="text-xl sm:text-2xl text-muted-foreground max-w-2xl mx-auto mb-12 font-normal leading-relaxed"
             >
               Pioneering the intersection of{' '}
               <span className="text-primary">cloud technology</span>,{' '}
@@ -494,8 +502,8 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
                       <stat.icon size={16} weight="light" className="text-primary" />
                     </div>
                   </div>
-                  <div className="text-2xl font-medium holo-text mb-1">{stat.value}</div>
-                  <div className="mono-text text-[10px] text-muted-foreground tracking-wider">{stat.label}</div>
+                  <div className="text-3xl font-semibold holo-text mb-1">{stat.value}</div>
+                  <div className="mono-text text-xs text-muted-foreground tracking-wider font-medium">{stat.label}</div>
                 </motion.div>
               ))}
             </motion.div>
@@ -525,10 +533,10 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
                     })()}
                   </div>
                   <div className="flex-1">
-                    <h2 className="text-2xl sm:text-3xl font-medium tracking-tight mb-2 text-foreground">
+                    <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-2 text-foreground">
                       {bookPages[currentPage].title}
                     </h2>
-                    <p className="text-muted-foreground font-light">
+                    <p className="text-muted-foreground font-normal text-lg">
                       {bookPages[currentPage].content}
                     </p>
                   </div>
@@ -603,7 +611,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
                 <Button 
                   size="lg" 
                   onClick={() => scrollToSection('solutions')}
-                  className="futuristic-button text-sm font-medium tracking-wide px-8"
+                  className="futuristic-button text-base font-semibold tracking-wide px-8"
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     EXPLORE SOLUTIONS
@@ -617,7 +625,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
                   size="lg" 
                   variant="outline"
                   onClick={() => setIsContactDrawerOpen(true)}
-                  className="glass-panel border-primary/30 hover:border-primary/60 text-sm font-medium tracking-wide px-8"
+                  className="glass-panel border-primary/30 hover:border-primary/60 text-base font-semibold tracking-wide px-8"
                 >
                   INITIATE CONTACT
                 </Button>
@@ -655,8 +663,8 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
             transition={{ duration: 0.6 }}
             className="mb-16"
           >
-            <span className="mono-text text-xs text-primary tracking-widest mb-4 block">CAPABILITIES</span>
-            <h2 className="text-3xl sm:text-4xl font-medium tracking-tight text-foreground mb-4">
+            <span className="mono-text text-sm text-primary tracking-widest mb-4 block font-semibold">CAPABILITIES</span>
+            <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-4">
               Solutions
             </h2>
             <p className="text-muted-foreground font-light max-w-xl">
@@ -684,13 +692,13 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
                       
                       <div className="space-y-6">
                         <div>
-                          <h3 className="text-xl font-medium mb-2 text-foreground">{solution.title}</h3>
-                          <p className="text-muted-foreground font-light text-sm">{solution.description}</p>
+                          <h3 className="text-2xl font-semibold mb-2 text-foreground">{solution.title}</h3>
+                          <p className="text-muted-foreground font-normal text-base">{solution.description}</p>
                         </div>
                         
                         <div className="grid sm:grid-cols-2 gap-2">
                           {solution.details.map((detail) => (
-                            <div key={detail} className="flex items-start gap-2 text-sm text-foreground/70 font-light">
+                            <div key={detail} className="flex items-start gap-2 text-base text-foreground/70 font-normal">
                               <div className="w-1 h-1 rounded-full bg-primary/60 mt-2" />
                               <span>{detail}</span>
                             </div>
@@ -739,8 +747,8 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="mono-text text-xs text-secondary tracking-widest mb-4 block">CASE STUDIES</span>
-            <h2 className="text-3xl sm:text-4xl font-medium tracking-tight text-foreground mb-4">
+            <span className="mono-text text-sm text-secondary tracking-widest mb-4 block font-semibold">CASE STUDIES</span>
+            <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-4">
               Client Outcomes
             </h2>
             <p className="text-muted-foreground font-light max-w-xl">
@@ -771,7 +779,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
                 <Card className="neo-card border-0 flex-shrink-0 w-[380px]">
                   <CardContent className="p-6 space-y-5">
                     <div className="flex items-start justify-between">
-                      <h3 className="text-lg font-medium text-foreground">{study.company}</h3>
+                      <h3 className="text-xl font-semibold text-foreground">{study.company}</h3>
                       <span className="mono-text text-[10px] px-2.5 py-1 glass-panel rounded-full text-muted-foreground">
                         {study.industry}
                       </span>
@@ -780,12 +788,12 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
                     <div className="space-y-4">
                       <div>
                         <span className="mono-text text-[10px] text-muted-foreground tracking-wider block mb-1">CHALLENGE</span>
-                        <p className="text-sm text-foreground/70 font-light">{study.challenge}</p>
+                        <p className="text-base text-foreground/70 font-normal">{study.challenge}</p>
                       </div>
 
                       <div>
                         <span className="mono-text text-[10px] text-muted-foreground tracking-wider block mb-1">SOLUTION</span>
-                        <p className="text-sm text-foreground/70 font-light">{study.solution}</p>
+                        <p className="text-base text-foreground/70 font-normal">{study.solution}</p>
                       </div>
 
                       <div>
@@ -794,7 +802,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
                           {study.results.map((result) => (
                             <div key={result} className="flex items-start gap-2">
                               <div className="w-1 h-1 rounded-full bg-accent mt-2" />
-                              <span className="text-sm text-foreground font-light">{result}</span>
+                              <span className="text-base text-foreground font-normal">{result}</span>
                             </div>
                           ))}
                         </div>
@@ -828,7 +836,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
               { value: '98%', label: 'SATISFACTION' }
             ].map((stat) => (
               <motion.div key={stat.label} whileHover={{ y: -2 }} className="cursor-pointer">
-                <div className="text-3xl font-medium holo-text mb-1">{stat.value}</div>
+                <div className="text-4xl font-bold holo-text mb-1">{stat.value}</div>
                 <div className="mono-text text-[10px] text-muted-foreground tracking-wider">{stat.label}</div>
               </motion.div>
             ))}
@@ -846,8 +854,8 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="mono-text text-xs text-accent tracking-widest mb-4 block">CONNECT</span>
-            <h2 className="text-3xl sm:text-4xl font-medium tracking-tight text-foreground mb-4">
+            <span className="mono-text text-sm text-accent tracking-widest mb-4 block font-semibold">CONNECT</span>
+            <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-4">
               Begin Your Transformation
             </h2>
             <p className="text-muted-foreground font-light mb-10 max-w-lg mx-auto">
@@ -858,7 +866,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
           <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
             <Button 
               size="lg"
-              className="futuristic-button font-medium tracking-wide px-10 py-6 text-base"
+              className="futuristic-button font-semibold tracking-wide px-10 py-6 text-lg"
               onClick={() => setIsContactDrawerOpen(true)}
             >
               <span className="relative z-10 flex items-center gap-3">
@@ -876,11 +884,11 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="grid md:grid-cols-2 gap-16 mb-20">
             <div>
-              <span className="mono-text text-xs text-primary tracking-widest mb-4 block">ABOUT</span>
-              <h2 className="text-2xl sm:text-3xl font-medium tracking-tight mb-6 text-foreground">
+              <span className="mono-text text-sm text-primary tracking-widest mb-4 block font-semibold">ABOUT</span>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6 text-foreground">
                 Agrani Digital
               </h2>
-              <div className="space-y-4 text-muted-foreground font-light leading-relaxed">
+              <div className="space-y-4 text-muted-foreground font-normal leading-relaxed text-lg">
                 <p>
                   Founded on the principle that enterprises need cloud-native, 
                   scalable digital infrastructure, Agrani Digital architects resilient 
@@ -894,7 +902,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
             </div>
             
             <div className="space-y-6">
-              <span className="mono-text text-xs text-secondary tracking-widest block">PRINCIPLES</span>
+              <span className="mono-text text-sm text-secondary tracking-widest block font-semibold">PRINCIPLES</span>
               {[
                 { title: 'Cloud Native', desc: 'Infrastructure designed for scalability and resilience' },
                 { title: 'Automation First', desc: 'Self-healing, automated system architectures' },
@@ -902,8 +910,8 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
                 { title: 'Data Driven', desc: 'Insights-powered decision making across operations' }
               ].map((item) => (
                 <div key={item.title} className="border-l border-primary/30 pl-4 hover:border-primary/60 transition-colors">
-                  <h4 className="font-medium mb-1 text-foreground text-sm">{item.title}</h4>
-                  <p className="text-xs text-muted-foreground font-light">{item.desc}</p>
+                  <h4 className="font-semibold mb-1 text-foreground text-base">{item.title}</h4>
+                  <p className="text-sm text-muted-foreground font-normal">{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -916,7 +924,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
       <section id="careers" className="py-32 px-6 relative">
         <div className="max-w-4xl mx-auto relative z-10">
           <div className="text-center mb-16">
-            <span className="mono-text text-xs text-accent tracking-widest mb-4 block">CAREERS</span>
+            <span className="mono-text text-sm text-accent tracking-widest mb-4 block font-semibold">CAREERS</span>
             <h2 className="text-2xl sm:text-3xl font-medium tracking-tight mb-4 text-foreground">
               Join the Future
             </h2>
@@ -1056,7 +1064,11 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-12 mb-12">
             <div>
-              <h3 className="holo-text font-medium mb-4">AGRANI DIGITAL</h3>
+              <img 
+                src="/logo.png" 
+                alt="AGRANI DIGITAL" 
+                className="h-14 w-auto mb-4"
+              />
               <p className="text-xs text-muted-foreground font-light leading-relaxed">
                 Cloud-native digital transformation consulting
               </p>
@@ -1098,15 +1110,15 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
         <SheetContent side="right" className="w-full sm:max-w-md overflow-y-auto p-0 glass-panel-strong border-l-primary/20">
           <div className="p-6">
             <SheetHeader className="p-0">
-              <SheetTitle className="text-xl font-medium text-foreground">Initiate Contact</SheetTitle>
-              <SheetDescription className="text-muted-foreground font-light">
+              <SheetTitle className="text-2xl font-bold text-foreground">Initiate Contact</SheetTitle>
+              <SheetDescription className="text-muted-foreground font-normal text-base">
                 Tell us about your transformation goals
               </SheetDescription>
             </SheetHeader>
             
             <form onSubmit={handleSubmit} className="mt-8 space-y-5">
               <div className="space-y-2">
-                <Label htmlFor="full-name" className="mono-text text-[10px] tracking-wider">FULL NAME *</Label>
+                <Label htmlFor="full-name" className="mono-text text-xs tracking-wider font-semibold">FULL NAME *</Label>
                 <Input 
                   id="full-name" 
                   placeholder="John Smith" 
@@ -1118,7 +1130,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email" className="mono-text text-[10px] tracking-wider">EMAIL *</Label>
+                <Label htmlFor="email" className="mono-text text-xs tracking-wider font-semibold">EMAIL *</Label>
                 <Input 
                   id="email" 
                   type="email" 
@@ -1131,7 +1143,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="company" className="mono-text text-[10px] tracking-wider">COMPANY</Label>
+                <Label htmlFor="company" className="mono-text text-xs tracking-wider font-semibold">COMPANY</Label>
                 <Input 
                   id="company" 
                   placeholder="Acme Corporation" 
@@ -1142,7 +1154,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="service" className="mono-text text-[10px] tracking-wider">SERVICE INTEREST *</Label>
+                <Label htmlFor="service" className="mono-text text-xs tracking-wider font-semibold">SERVICE INTEREST *</Label>
                 <Select 
                   required 
                   value={formData.service}
@@ -1162,7 +1174,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="timeline" className="mono-text text-[10px] tracking-wider">TIMELINE</Label>
+                <Label htmlFor="timeline" className="mono-text text-xs tracking-wider font-semibold">TIMELINE</Label>
                 <Select
                   value={formData.timeline}
                   onValueChange={(value) => handleFormChange('timeline', value)}
@@ -1180,7 +1192,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="message" className="mono-text text-[10px] tracking-wider">PROJECT DETAILS *</Label>
+                <Label htmlFor="message" className="mono-text text-xs tracking-wider font-semibold">PROJECT DETAILS *</Label>
                 <Textarea 
                   id="message" 
                   placeholder="Describe your transformation goals..."
