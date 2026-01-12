@@ -356,7 +356,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
 
       <nav className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-lg shadow-md border-b ${
         theme === 'dark' 
-          ? 'bg-[#D3E4FD]/90 border-blue-200/50' 
+          ? 'bg-[#EFFAFD]/90 border-cyan-200/50' 
           : 'bg-white/90 border-gray-200/50'
       }`}>
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
@@ -400,9 +400,13 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
                     key={section}
                     onClick={() => scrollToSection(section.toLowerCase().replace(' ', '-'))}
                     className={`text-base font-semibold tracking-wide relative transition-all ${
-                      activeSection === section.toLowerCase().replace(' ', '-') 
-                        ? 'text-primary' 
-                        : 'text-muted-foreground hover:text-foreground'
+                      theme === 'dark'
+                        ? activeSection === section.toLowerCase().replace(' ', '-')
+                          ? 'text-black'
+                          : 'text-black/70 hover:text-black'
+                        : activeSection === section.toLowerCase().replace(' ', '-')
+                          ? 'text-primary'
+                          : 'text-muted-foreground hover:text-foreground'
                     }`}
                     whileHover={{ y: -1 }}
                     whileTap={{ scale: 0.98 }}
