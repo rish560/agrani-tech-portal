@@ -12,7 +12,9 @@ import {
   CaretRight,
   CircleNotch,
   Sun,
-  Moon
+  Moon,
+  List,
+  X
 } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -38,6 +40,7 @@ function App() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [pageDirection, setPageDirection] = useState(1)
   const [theme, setTheme] = useKV<'light' | 'dark'>('agrani-theme', 'dark')
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     if (theme === 'light') {
@@ -380,6 +383,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
             </button>
             
             <div className="flex items-center gap-4">
+              {/* Mobile theme toggle - visible on mobile */}
               <motion.button
                 onClick={toggleTheme}
                 className="md:hidden p-2 rounded-lg bg-cyan-100/60 hover:bg-cyan-200/60 border border-cyan-200 transition-all"
@@ -393,9 +397,25 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
                   <Moon size={18} weight="light" className="text-slate-900" />
                 )}
               </motion.button>
+              
+              {/* Mobile menu button */}
+              <motion.button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="md:hidden p-2 rounded-lg bg-cyan-100/60 hover:bg-cyan-200/60 border border-cyan-200 transition-all"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="Toggle menu"
+              >
+                {isMobileMenuOpen ? (
+                  <X size={22} weight="bold" className="text-slate-900" />
+                ) : (
+                  <List size={22} weight="bold" className="text-slate-900" />
+                )}
+              </motion.button>
             
+              {/* Desktop navigation */}
               <div className="hidden md:flex items-center gap-8">
-                {['Solutions', 'Case Studies', 'Contact'].map((section) => (
+                {['Solutions', 'Case Studies', 'About', 'Careers', 'Expertise', 'Contact'].map((section) => (
                   <motion.button
                     key={section}
                     onClick={() => scrollToSection(section.toLowerCase().replace(' ', '-'))}
@@ -437,6 +457,45 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
               </div>
             </div>
           </div>
+          
+          {/* Mobile menu */}
+          <AnimatePresence>
+            {isMobileMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="md:hidden overflow-hidden"
+              >
+                <div className="py-4 space-y-1">
+                  {['Solutions', 'Case Studies', 'About', 'Careers', 'Expertise', 'Contact'].map((section) => (
+                    <motion.button
+                      key={section}
+                      onClick={() => {
+                        setIsMobileMenuOpen(false)
+                        setTimeout(() => {
+                          scrollToSection(section.toLowerCase().replace(' ', '-'))
+                        }, 300)
+                      }}
+                      className={`w-full text-left px-4 py-3 rounded-lg transition-all ${
+                        theme === 'dark'
+                          ? activeSection === section.toLowerCase().replace(' ', '-')
+                            ? 'bg-cyan-100 text-black font-semibold'
+                            : 'text-black/70 hover:bg-cyan-50 hover:text-black'
+                          : activeSection === section.toLowerCase().replace(' ', '-')
+                            ? 'bg-primary/10 text-primary font-semibold'
+                            : 'text-muted-foreground hover:bg-accent hover:text-foreground'
+                      }`}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <span className="mono-text text-sm">{section.toUpperCase()}</span>
+                    </motion.button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </nav>
 
