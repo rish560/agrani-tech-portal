@@ -1,0 +1,19 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgb(16,185,129);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgb(59,130,246);stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grad3)"/>
+  <text x="600" y="260" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="white" text-anchor="middle">
+    Zero Trust
+  </text>
+  <text x="600" y="340" font-family="Arial, sans-serif" font-size="48" fill="rgba(255,255,255,0.9)" text-anchor="middle">
+    Security
+  </text>
+  <circle cx="150" cy="200" r="70" fill="rgba(255,255,255,0.2)"/>
+  <circle cx="1050" cy="450" r="95" fill="rgba(255,255,255,0.15)"/>
+  <rect x="450" y="470" width="300" height="30" rx="15" fill="rgba(255,255,255,0.25)"/>
+  <circle cx="600" cy="120" r="40" fill="rgba(255,255,255,0.3)"/>
+</svg>
