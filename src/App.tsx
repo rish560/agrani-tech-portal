@@ -11,8 +11,6 @@ import {
   CaretLeft,
   CaretRight,
   CircleNotch,
-  Sun,
-  Moon,
   List,
   X
 } from '@phosphor-icons/react'
@@ -39,20 +37,12 @@ function App() {
   const [isContactDrawerOpen, setIsContactDrawerOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [pageDirection, setPageDirection] = useState(1)
-  const [theme, setTheme] = useKV<'light' | 'dark'>('agrani-theme', 'dark')
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
+  // Set light theme permanently
   useEffect(() => {
-    if (theme === 'light') {
-      document.documentElement.classList.add('light')
-    } else {
-      document.documentElement.classList.remove('light')
-    }
-  }, [theme])
-
-  const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark')
-  }
+    document.documentElement.classList.add('light')
+  }, [])
   
   const [formData, setFormData] = useState({
     fullName: '',
@@ -67,7 +57,7 @@ function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'solutions', 'case-studies', 'about', 'careers', 'expertise', 'contact']
+      const sections = ['home', 'about-us', 'expertise', 'solutions', 'case-studies', 'careers', 'blogs', 'contact']
       const scrollPosition = window.scrollY + 100
 
       for (const section of sections) {
@@ -357,11 +347,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
       <NeuralNetwork />
       <Toaster />
 
-      <nav className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-lg shadow-md border-b ${
-        theme === 'dark' 
-          ? 'bg-[#EFFAFD]/90 border-cyan-200/50' 
-          : 'bg-white/90 border-gray-200/50'
-      }`}>
+      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg shadow-md border-b bg-white/90 border-gray-200/50">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <button 
@@ -383,21 +369,6 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
             </button>
             
             <div className="flex items-center gap-4">
-              {/* Mobile theme toggle - visible on mobile */}
-              <motion.button
-                onClick={toggleTheme}
-                className="md:hidden p-2 rounded-lg bg-cyan-100/60 hover:bg-cyan-200/60 border border-cyan-200 transition-all"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? (
-                  <Sun size={18} weight="light" className="text-slate-900" />
-                ) : (
-                  <Moon size={18} weight="light" className="text-slate-900" />
-                )}
-              </motion.button>
-              
               {/* Mobile menu button */}
               <motion.button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -415,18 +386,14 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
             
               {/* Desktop navigation */}
               <div className="hidden md:flex items-center gap-8">
-                {['Solutions', 'Case Studies', 'About', 'Careers', 'Expertise', 'Contact'].map((section) => (
+                {['About Us', 'Expertise', 'Solutions', 'Case Studies', 'Careers', 'Blogs', 'Contact'].map((section) => (
                   <motion.button
                     key={section}
                     onClick={() => scrollToSection(section.toLowerCase().replace(' ', '-'))}
                     className={`text-base font-semibold tracking-wide relative transition-all ${
-                      theme === 'dark'
-                        ? activeSection === section.toLowerCase().replace(' ', '-')
-                          ? 'text-black'
-                          : 'text-black/70 hover:text-black'
-                        : activeSection === section.toLowerCase().replace(' ', '-')
-                          ? 'text-primary'
-                          : 'text-muted-foreground hover:text-foreground'
+                      activeSection === section.toLowerCase().replace(' ', '-')
+                        ? 'text-primary'
+                        : 'text-muted-foreground hover:text-foreground'
                     }`}
                     whileHover={{ y: -1 }}
                     whileTap={{ scale: 0.98 }}
@@ -440,20 +407,6 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
                     )}
                   </motion.button>
                 ))}
-                
-                <motion.button
-                  onClick={toggleTheme}
-                  className="p-2 rounded-lg bg-cyan-100/60 hover:bg-cyan-200/60 border border-cyan-200 transition-all"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  aria-label="Toggle theme"
-                >
-                  {theme === 'dark' ? (
-                    <Sun size={18} weight="light" className="text-slate-900" />
-                  ) : (
-                    <Moon size={18} weight="light" className="text-slate-900" />
-                  )}
-                </motion.button>
               </div>
             </div>
           </div>
@@ -469,7 +422,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
                 className="md:hidden overflow-hidden"
               >
                 <div className="py-4 space-y-1">
-                  {['Solutions', 'Case Studies', 'About', 'Careers', 'Expertise', 'Contact'].map((section) => (
+                  {['About Us', 'Expertise', 'Solutions', 'Case Studies', 'Careers', 'Blogs', 'Contact'].map((section) => (
                     <motion.button
                       key={section}
                       onClick={() => {
@@ -479,13 +432,9 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
                         }, 300)
                       }}
                       className={`w-full text-left px-4 py-3 rounded-lg transition-all ${
-                        theme === 'dark'
-                          ? activeSection === section.toLowerCase().replace(' ', '-')
-                            ? 'bg-cyan-100 text-black font-semibold'
-                            : 'text-black/70 hover:bg-cyan-50 hover:text-black'
-                          : activeSection === section.toLowerCase().replace(' ', '-')
-                            ? 'bg-primary/10 text-primary font-semibold'
-                            : 'text-muted-foreground hover:bg-accent hover:text-foreground'
+                        activeSection === section.toLowerCase().replace(' ', '-')
+                          ? 'bg-primary/10 text-primary font-semibold'
+                          : 'text-muted-foreground hover:bg-accent hover:text-foreground'
                       }`}
                       whileTap={{ scale: 0.98 }}
                     >
@@ -532,7 +481,7 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-xl sm:text-2xl text-muted-foreground max-w-2xl mx-auto mb-12 font-normal leading-relaxed"
+              className="text-xl sm:text-2xl text-muted-foreground max-w-2xl mx-auto mb-16 font-normal leading-relaxed"
             >
               Pioneering the intersection of{' '}
               <span className="text-primary">cloud technology</span>,{' '}
@@ -540,35 +489,82 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
               <span className="text-accent">enterprise security</span>
             </motion.p>
 
+            {/* Vision and Mission Section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.7 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-16"
+              className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto mb-16"
             >
-              {[
-                { value: '100+', label: 'ENTERPRISES', icon: Users },
-                { value: '15Y', label: 'EXPERIENCE', icon: ShieldCheck },
-                { value: '$2B+', label: 'VALUE', icon: Database },
-                { value: '98%', label: 'RETENTION', icon: Brain }
-              ].map((stat, idx) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.9 + idx * 0.1, duration: 0.5 }}
-                  whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                  className="neo-card rounded-lg p-4 cursor-pointer group"
-                >
-                  <div className="flex justify-center mb-3">
-                    <div className="w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                      <stat.icon size={16} weight="light" className="text-primary" />
+              {/* Vision */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.9, duration: 0.6 }}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                className="neo-card rounded-xl p-8 cursor-pointer group relative overflow-hidden"
+              >
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-3xl" />
+                <div className="relative">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Brain size={20} weight="duotone" className="text-primary" />
                     </div>
+                    <h3 className="text-2xl font-bold text-foreground tracking-tight">Our Vision</h3>
                   </div>
-                  <div className="text-3xl font-semibold holo-text mb-1">{stat.value}</div>
-                  <div className="mono-text text-xs text-muted-foreground tracking-wider font-medium">{stat.label}</div>
-                </motion.div>
-              ))}
+                  <p className="text-muted-foreground leading-relaxed text-base">
+                    To empower organizations worldwide to thrive in the digital era by delivering 
+                    <span className="text-primary font-medium"> secure</span>,
+                    <span className="text-secondary font-medium"> intelligent</span>, and
+                    <span className="text-accent font-medium"> scalable</span> technology platforms 
+                    that drive innovation, efficiency, and sustainable growth.
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Mission */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.0, duration: 0.6 }}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                className="neo-card rounded-xl p-8 cursor-pointer group relative overflow-hidden"
+              >
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-secondary/10 to-transparent rounded-full blur-3xl" />
+                <div className="relative">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-secondary/20 to-accent/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <ShieldCheck size={20} weight="duotone" className="text-secondary" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-foreground tracking-tight">Our Mission</h3>
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed text-base mb-4">
+                    We simplify complex digital challenges by partnering with enterprises to deliver:
+                  </p>
+                  <ul className="space-y-3">
+                    {[
+                      'Strategic digital transformation roadmaps',
+                      'Robust cloud & data platforms',
+                      'Responsible AI solutions',
+                      'Enterprise-grade cybersecurity'
+                    ].map((item, idx) => (
+                      <motion.li
+                        key={item}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 1.1 + idx * 0.1, duration: 0.4 }}
+                        className="flex items-start gap-3 group/item"
+                      >
+                        <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-primary to-secondary mt-2 group-hover/item:scale-150 transition-transform" />
+                        <span className="text-foreground/90 text-sm font-medium">{item}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                  <p className="text-xs text-muted-foreground/80 mt-4 italic">
+                    Business-led. Technology-driven. Results-focused.
+                  </p>
+                </div>
+              </motion.div>
             </motion.div>
           </motion.div>
 
@@ -941,13 +937,13 @@ Format this as a clear, professional email that I would receive in my inbox. Inc
         </div>
       </section>
 
-      <section id="about" className="py-32 px-6 relative">
+      <section id="about-us" className="py-32 px-6 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-card/50 to-transparent" />
         
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="grid md:grid-cols-2 gap-16 mb-20">
             <div>
-              <span className="mono-text text-sm text-primary tracking-widest mb-4 block font-semibold">ABOUT</span>
+              <span className="mono-text text-sm text-primary tracking-widest mb-4 block font-semibold">ABOUT US</span>
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6 text-foreground">
                 Agrani Digital
               </h2>
